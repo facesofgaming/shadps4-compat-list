@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShadPS4 Compatibility List</title>
+
+    <script src="https://unpkg.com/vue@3.4.37/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ag-grid/31.3.4/ag-grid-community.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox-plus-jquery.min.js"
+        integrity="sha512-U9dKDqsXAE11UA9kZ0XKFyZ2gQCj+3AwZdBMni7yXSvWqLFEj8C1s7wRmWl9iyij8d5zb4wm56j4z/JVEwS77g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css"
+        integrity="sha512-ZKX+BvQihRJPA8CROKBhDNvoc2aDMOdAlcm7TUQY+35XYtrd3yh95QOOhsPDQY9QnKE0Wqag9y38OIgEvb88cA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style lang="css">
+        .ag-body-viewport-wrapper.ag-layout-normal {
+            overflow-x: scroll;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-600">
+    <div id="app" class="flex flex-col h-screen">
+        <div class="flex flex-col items-center justify-between p-4 text-white md:flex-row">
+            <div class="flex-grow-0 mb-2 md:mb-0">
+                <div class="flex flex-row items-center justify-center space-x-2">
+                    <img src="/shadps4/shadps4-logo.png" alt="ShadPS4 Logo" class="w-8 h-8">
+                    <span class="font-bold">
+                        ShadPS4 Compatibility List
+                    </span>
+                </div>
+            </div>
+            <div class="flex flex-col w-full md:w-1/4 md:flex-row">
+                <input v-model="searchQuery" class="flex-grow p-2 mb-2 text-gray-600 rounded md:mb-0"
+                    placeholder="Search by title...">
+                <button @click="clearSearch" class="flex-grow-0 p-2 ml-0 text-white bg-blue-500 rounded md:ml-2">
+                    Clear
+                </button>
+            </div>
+            <div class="flex flex-wrap mt-2 md:mt-0">
+                <label v-for="status in uniqueStatuses" :key="status" class="mr-4 capitalize">
+                    <input type="checkbox" v-model="selectedStatuses" :value="status">
+                    {{ status }} ({{ statusCounts[status] || 0 }})
+                </label>
+            </div>
+        </div>
+
+        <!-- Add a wrapper div for the ag-grid -->
+        <div class="flex-grow ag-theme-quartz-dark">
+            <ag-grid-vue />
+        </div>
+
+        <div class="flex flex-col items-center justify-between p-4 text-white md:flex-row">
+            <div class="mb-2 font-bold md:mb-0">
+                Total Records: {{ totalRecords }}
+            </div>
+            <div class="text-xs text-center md:text-left">
+                This data is parsed hourly from
+                <a href="https://github.com/shadps4-emu/shadps4-game-compatibility/issues" target="_blank"
+                    class="text-blue-500">
+                    shadps4-game-compatibility
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/shadps4/app.shadps4.js"></script>
+</body>
+
+</html>
