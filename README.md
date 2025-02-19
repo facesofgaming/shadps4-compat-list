@@ -2,6 +2,8 @@
 
 This is a fan-made compatibility list for ShadPS4. The list is generated from GitHub issues and can be updated automatically.
 
+Link: https://shadps4.emutube.com/
+
 ## How it works
 
 This project uses a Laravel installation for simplicity. There are only 5 main files involved:
